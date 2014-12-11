@@ -1,16 +1,16 @@
 @isTest
 private class CrudEnforcementUtilsTest {
-  
+
   private static User testUser1, testUser2;
-  
+
   static testMethod void testCrudEnforcement() {
     initTestData();
-    
+
     Test.startTest();
-    
+
     SObject nullObject = null;
     List<SObject> nullList;
-    
+
     System.assertEquals(false, CrudEnforcementUtils.canCreateObject(nullList));
     System.assertEquals(false,
       CrudEnforcementUtils.canCreateObject(nullObject));
@@ -32,69 +32,61 @@ private class CrudEnforcementUtilsTest {
       nullList, null));
     System.assertEquals(false, CrudEnforcementUtils.canUpsertAllFields(
       nullObject, null));
-    
-    Set<String> fields = new Set<String> { 'Taxable__c' };
-    
-    Promotion__c p = new Promotion__c();
-    List<Promotion__c> pList = new List<Promotion__c>();
-    
+
+    Set<String> fields = new Set<String> { 'Name' };
+
+    Account a = new Account();
+    List<Account> aList = new List<Account>();
+
     System.runAs(testUser1) {
-      System.assertEquals(false, CrudEnforcementUtils.canCreateObject(pList));
-      System.assertEquals(false, CrudEnforcementUtils.canCreateObject(p));
-      System.assertEquals(false, CrudEnforcementUtils.canUpdateObject(pList));
-      System.assertEquals(false, CrudEnforcementUtils.canUpdateObject(p));
+      System.assertEquals(false, CrudEnforcementUtils.canCreateObject(aList));
+      System.assertEquals(false, CrudEnforcementUtils.canCreateObject(a));
+      System.assertEquals(false, CrudEnforcementUtils.canUpdateObject(aList));
+      System.assertEquals(false, CrudEnforcementUtils.canUpdateObject(a));
       System.assertEquals(false, CrudEnforcementUtils.canUpdateAllFields(
-        pList, fields));
+        aList, fields));
       System.assertEquals(false, CrudEnforcementUtils.canUpdateAllFields(
-        p, fields));
+        a, fields));
       System.assertEquals(false, CrudEnforcementUtils.canCreateAllFields(
-        pList, fields));
+        aList, fields));
       System.assertEquals(false, CrudEnforcementUtils.canCreateAllFields(
-        p, fields));
-      System.assertEquals(false, CrudEnforcementUtils.canUpsertObject(pList));
+        a, fields));
+      System.assertEquals(false, CrudEnforcementUtils.canUpsertObject(aList));
       System.assertEquals(false,
-        CrudEnforcementUtils.canUpsertObject(p));
+        CrudEnforcementUtils.canUpsertObject(a));
     }
-    
+
     System.runAs(testUser2) {
-      System.assertEquals(true, CrudEnforcementUtils.canCreateObject(pList));
-      System.assertEquals(true, CrudEnforcementUtils.canCreateObject(p));
-      System.assertEquals(true, CrudEnforcementUtils.canUpdateObject(pList));
-      System.assertEquals(true, CrudEnforcementUtils.canUpdateObject(p));
+      System.assertEquals(true, CrudEnforcementUtils.canCreateObject(aList));
+      System.assertEquals(true, CrudEnforcementUtils.canCreateObject(a));
+      System.assertEquals(true, CrudEnforcementUtils.canUpdateObject(aList));
+      System.assertEquals(true, CrudEnforcementUtils.canUpdateObject(a));
       System.assertEquals(true, CrudEnforcementUtils.canUpdateAllFields(
-        pList, fields));
+        aList, fields));
       System.assertEquals(true, CrudEnforcementUtils.canUpdateAllFields(
-        p, fields));
+        a, fields));
       System.assertEquals(true, CrudEnforcementUtils.canCreateAllFields(
-        pList, fields));
+        aList, fields));
       System.assertEquals(true, CrudEnforcementUtils.canCreateAllFields(
-        p, fields));
-      System.assertEquals(true, CrudEnforcementUtils.canUpsertObject(pList));
+        a, fields));
+      System.assertEquals(true, CrudEnforcementUtils.canUpsertObject(aList));
       System.assertEquals(true,
         CrudEnforcementUtils.canUpsertObject(p));
-      System.assertEquals(true, CrudEnforcementUtils.canUpsertAllFields(pList,
+      System.assertEquals(true, CrudEnforcementUtils.canUpsertAllFields(aList,
         fields));
       System.assertEquals(true,
-        CrudEnforcementUtils.canUpsertAllFields(p, fields));
+        CrudEnforcementUtils.canUpsertAllFields(a, fields));
     }
-    
-    
+
+
     Test.stopTest();
   }
-  
+
   private static void initTestData() {
     testUser1 = TestUtils.createStandardUser();
     insert testUser1;
-    
-    testUser2 = TestUtils.createStandardUser();
+
+    testUser2 = TestUtils.createSystemAdministrator();
     insert testUser2;
-    
-    Id permissionSetId =
-      TestUtils.getPermissionSetIdByName('BIW_Administrator');
-    
-    PermissionSetAssignment psa = new PermissionSetAssignment(
-      PermissionSetId = permissionSetId,
-      AssigneeId = testUser2.Id);
-    insert psa;
   }
 }
