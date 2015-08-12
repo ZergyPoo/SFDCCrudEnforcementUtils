@@ -71,7 +71,7 @@ private class CrudEnforcementUtilsTest {
         a, fields));
       System.assertEquals(true, CrudEnforcementUtils.canUpsertObject(aList));
       System.assertEquals(true,
-        CrudEnforcementUtils.canUpsertObject(p));
+        CrudEnforcementUtils.canUpsertObject(a));
       System.assertEquals(true, CrudEnforcementUtils.canUpsertAllFields(aList,
         fields));
       System.assertEquals(true,
