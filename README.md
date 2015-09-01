@@ -8,7 +8,7 @@ To install this package in your salesforce instance, follow these steps:
 
 2. Clone this repository into a local directory.
 
-3. Createa  new file in the root directory of the repository called "build.properties"
+3. Create a new file in the root directory of the repository called "build.properties"
 
 4. Open the "build.properties" file in your favorite text editor.
 
