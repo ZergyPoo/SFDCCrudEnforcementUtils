@@ -1,5 +1,4 @@
 .project
 .settings/*
-shell/sfdclogin.xml
 .DS_Store
-spoke/ResourceManagement/staticresources/*.resource
+build.properties
