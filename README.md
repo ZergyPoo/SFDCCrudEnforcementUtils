@@ -8,7 +8,9 @@ To install this package in your salesforce instance, follow these steps:
 
 2. Clone this repository into a local directory.
 
-3. Open the "build.properties" file in your favorite text editor.
+3. Createa  new file in the root directory of the repository called "build.properties"
+
+4. Open the "build.properties" file in your favorite text editor.
 
 Fill in this file with your salesforce credentials so that it looks like this:
 
@@ -18,9 +20,9 @@ sfdc.username=<your username>
 sfdc.password=<your password><your security token>
 ```
 
-4. Run "ant deploy" from the repository base directoy.
+5. Run "ant deploy" from the repository base directoy.
 
-5. Enjoy!
+6. Enjoy!
 
 To use Crud Enforcement:
 
